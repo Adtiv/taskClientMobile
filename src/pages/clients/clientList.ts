@@ -6,6 +6,7 @@ import {AddClientPage} from './addClient'
 import {ClientDetailPage} from './clientDetail'
 import {EditClientPage} from './editClient'
 import {SearchPipe} from './search.pipe'
+import {UserService} from '../user/userService'
 
 
 @Component({
@@ -15,28 +16,18 @@ export class ClientListPage implements OnInit{
   clients:FirebaseListObservable<any[]>;
   searchClient:string;
   clientList;
-  constructor(private navCtrl: NavController,private auth:FirebaseAuth,private clientService:ClientService) {
-    console.log("popped?");
-    //this.searchClient="";    
-    /*
-    if(clientService.initAddClient){
-      this.clientList=clientService.getLocalClientList();
-       for(let i=0;i<this.clientList.length;i++){
-         console.log(this.clientList[i]);
-       }
-    }
-    */
+  constructor(private userService: UserService,private navCtrl: NavController,private clientService:ClientService) {
+    this.userService.auth.onAuthStateChanged((auth)=>{
+        this.clients=this.clientService.getClients();
+        clientService.localClientObservable.subscribe((clients)=>{
+          this.clientList=this.clientService.getLocalClientList();
+        })
+    })
+    this.searchClient="";
+    //setTimeout(() => {this.clientList=this.clientService.getLocalClientList();console.log("LIST "+this.clientList)}, 30000);  
   }
   ngOnInit(){
     //this.clientService.initAddClient=true;
-  	this.auth.subscribe((auth)=>{
-  		if(auth!=null){
-  			this.clients=this.clientService.getClients();
-        this.clientList=this.clientService.getLocalClientList();
-  		}
-  	})
-    this.searchClient="";
-    console.log(this.clientList)
     //setTimeout(() => { this.searchClient="" }, 1);          
   }
   navAdd(){
@@ -58,7 +49,6 @@ export class ClientListPage implements OnInit{
   }
   onInput(event){
     console.log(event)
-    console.log("list "+this.clientList)
     //this.clientService.initAddClient=false;
   }
 }

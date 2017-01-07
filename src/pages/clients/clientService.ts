@@ -11,6 +11,7 @@ export class ClientService implements OnInit{
     clients: FirebaseListObservable<any[]>;
     clientTasks: FirebaseListObservable<any[]>;
     client: FirebaseObjectObservable<any>;
+    localClientObservable:FirebaseListObservable<any[]>;
     af: AngularFire;
     userService: UserService;
     userId;
@@ -22,6 +23,7 @@ export class ClientService implements OnInit{
     clientKey:string;
     initAddClient:boolean;
     initLocalClient:boolean;
+    dupsMap : { [key:string]:number; } = {};
     constructor(af: AngularFire,userService: UserService){
       this.af=af;
       this.userService=userService;
@@ -50,17 +52,25 @@ export class ClientService implements OnInit{
     setClients(){
       this.clients = this.af.database.list('clients/'+this.userId, { preserveSnapshot: true });
       this.clientList = [];
-      this.af.database.list('clients/'+this.userId,{
+      var self = this;
+      this.localClientObservable = this.af.database.list('clients/'+this.userId,{
             query: {
               orderByChild: 'name',
             }
-          }).subscribe(snapshots => {
+          })
+      this.localClientObservable.subscribe(snapshots => {
                snapshots.forEach(snapshot => {
-                   if(this.initLocalClient){
-                     this.setLocalClients(snapshot.$key,snapshot.name,snapshot.email,snapshot.phoneNumber,snapshot.address);
-                     console.log(this.clientList.length);
-                   }
-                               //this.initLocalClient=false;
+                   //if(this.initLocalClient){
+                     if(self.dupsMap[snapshot.$key]!==-1){
+                       this.setLocalClients(snapshot.$key,snapshot.name,snapshot.email,snapshot.phoneNumber,snapshot.address);
+                       self.dupsMap[snapshot.$key]=-1;
+                       console.log(this.clientList.length);
+                       if(this.clientList.length===85){
+                         console.log(this.clientList)
+                       }
+                     }
+                   //}
+                  //this.initLocalClient=false;
 
                 })
           })
@@ -100,6 +110,7 @@ export class ClientService implements OnInit{
       this.clientKey=key;
     }
     getLocalClientList(){
+      console.log("CLIENTLIST????" + this.clientList)
       return this.clientList;
     }
     addClient(name, email,phoneNumber,address){
