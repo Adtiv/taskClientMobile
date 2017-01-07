@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar favorite>
+    <ion-title>Tasks</ion-title>
+    <ion-buttons end>
+      <button (click)="navAdd()">
+        <ion-icon name="md-add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-select style="text-align:center;" (ionChange)="filterTasks();"[(ngModel)]="taskType">
+    <ion-option value="none">All Tasks</ion-option>
+    <ion-option value="motion">Motion Response</ion-option>
+    <ion-option value="discovery">Disovery Response</ion-option>
+    <ion-option value="pleading">Pleading Response</ion-option>
+    <ion-option value="mediation">Mediation Statement</ion-option>
+    <ion-option value="other">Other</ion-option>
+  </ion-select>
+  <ion-segment [(ngModel)]="filterColor" primary>
+    <ion-segment-button value="white" (ionSelect)="filterByColor('none')">
+      All
+    </ion-segment-button>
+    <ion-segment-button style="background-color:rgba(255,0,0,.8);"value="red" (ionSelect)="filterByColor('red')">
+      urgent
+    </ion-segment-button>
+    <ion-segment-button style="background-color:rgba(255,255,0,.8);"value="yellow" (ionSelect)="filterByColor('yellow')">
+      upcoming
+    </ion-segment-button>
+    <ion-segment-button style="background-color:rgba(0,255,0,.8);"value="green" (ionSelect)="filterByColor('green')">
+      future
+    </ion-segment-button>
+  </ion-segment>
+  <ion-list>
+    <ion-list-header></ion-list-header>
+    <ion-item-sliding *ngFor="let task of tasks | async" (click)="navTask(task)">
+      <ion-item [style.background-color]="getStyle(task)" style="text-align:center;"><ion-icon style="float:right;"name="arrow-forward"></ion-icon>
+        <h2><b>{{task.title}}</b></h2>
+        <p style="float:left;color:black;"><b>{{task.daysTillDue}}</b> <span *ngIf="task.daysTillDue!=1">days</span><span *ngIf="task.daysTillDue==1">day</span></p>
+      </ion-item>
+      <ion-item-options>
+        <button (click)="navEditTask(task)" primary>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button (click)="deleteTask(task)"danger>
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

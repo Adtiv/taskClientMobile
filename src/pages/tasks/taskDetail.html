@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar favorite>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+   <ion-list>
+        <ion-list-header>Task Detail</ion-list-header>
+        <ion-item style="text-align:center;">
+          <div style="white-space: normal;"><span>{{task.title}}</span></div>                   
+        </ion-item>  
+        <ion-item style="text-align:center;">
+          <div style="white-space: normal;"><span>{{task.description}}</span></div>                   
+        </ion-item>                      
+        <ion-item style="text-align:center;">
+          <div style="white-space: normal;"><span>Due On:   {{task.dueDate}}</span></div>
+        </ion-item>
+        <ion-item style="text-align:center;">
+          <div style="white-space: normal;"><span>You have <b>{{task.daysTillDue}}</b> <span *ngIf="task.daysTillDue!=1">days</span><span *ngIf="task.daysTillDue==1">day</span> to complete</span></div>
+        </ion-item>     
+    </ion-list>
+    <ion-list>
+        <ion-list-header>Clients</ion-list-header>
+        <ion-item *ngFor="let taskClient of taskClients | async">
+          {{taskClient.client}}
+        </ion-item>
+    </ion-list>
+</ion-content>

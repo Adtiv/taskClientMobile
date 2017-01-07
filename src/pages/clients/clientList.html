@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar favorite>
+    <ion-title>
+      Clients
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="navAdd()">
+        <ion-icon name="md-person-add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar
+    [(ngModel)]="searchClient"
+    [showCancelButton]="true"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+  <ion-list *ngIf="searchClient===''">
+    <ion-list-header>Client List</ion-list-header>
+    <ion-item-sliding *ngFor="let client of clients | async" (click)="navClient(client)">
+      <ion-item><ion-icon name="arrow-forward" item-right></ion-icon>
+        <ion-icon name="person" item-left></ion-icon>
+          <h2 style="color:rgb(100,100,175)"><b>{{client.name}}</b></h2>
+          <p>{{client.phoneNumber}}</p>
+          <p>{{client.email}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button (click)="navEditClient(client)"primary>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button (click)="deleteClient(client.$key)"danger>
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-list *ngIf="searchClient!==''">
+    <ion-list-header>Client List</ion-list-header>
+    <ion-item-sliding *ngFor="let client of clientList | search: searchClient" (click)="navClient(client)">
+      <ion-item><ion-icon name="arrow-forward" item-right></ion-icon>
+        <ion-icon name="person" item-left></ion-icon>
+          <h2 style="color:rgb(100,100,175)"><b>{{client.name}}</b></h2>
+          <p>{{client.phoneNumber}}</p>
+          <p>{{client.email}}</p>
+      </ion-item>
+      <ion-item-options>
+        <button primary>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button (click)="deleteClient(client.key)"danger>
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar favorite>
+    <ion-title>{{client.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+   <ion-list>
+        <ion-list-header>Client Detail</ion-list-header>
+        <ion-item style="text-align:center;">
+             <ion-icon name="person" item-left secondary></ion-icon><div style="white-space: normal;"><span>{{client.name}}</span></div>                   
+        </ion-item>  
+        <ion-item style="text-align:center;">
+             <ion-icon name="mail" item-left dark></ion-icon><div style="white-space: normal;"><span>{{client.email}}</span></div>                   
+        </ion-item>                      
+        <ion-item style="text-align:center;">
+              <ion-icon name="call" item-left primary></ion-icon><div style="white-space: normal;"><span>{{client.phoneNumber}}</span></div>
+        </ion-item>
+        <ion-item style="text-align:center;">
+              <ion-icon name="call" item-left primary></ion-icon><div style="white-space: normal;"><span>{{client.phoneNumber}}</span></div>
+        </ion-item>
+        <ion-item style="text-align:center;">
+              <ion-icon name="home" item-left danger></ion-icon><div style="white-space: normal;"><span>{{client.address}}</span></div>
+        </ion-item>       
+    </ion-list>
+    <ion-list>
+        <ion-list-header>Documents</ion-list-header>
+        <ion-item style="text-align:center;">
+              <ion-icon name="document" item-left></ion-icon><div style="white-space: normal;"><span></span></div>
+        </ion-item>   
+    </ion-list>  
+    <ion-list>
+        <ion-list-header>Client Tasks</ion-list-header>
+        <ion-item *ngFor="let clientTask of clientTasks | async"style="text-align:center;">
+             <ion-icon [style.color]="getStyle(clientTask)"name="checkmark"item-left><p>{{clientTask.days}} <span *ngIf="clientTask.days!=1">days</span><span *ngIf="clientTask.days==1">day</span></p></ion-icon><div style="white-space: normal;"><span>{{clientTask.task}}</span></div>  
+        </ion-item>    
+    </ion-list>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar favorite>
+    <ion-title>New Client</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+   <form (ngSubmit)="addClient()">
+        <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input type="text" value="" name="name" [(ngModel)]="name"></ion-input>         
+        </ion-item>                      
+        <ion-item>
+            <ion-label floating><ion-icon class="ion-ios-plus"></ion-icon>Email</ion-label>
+            <ion-input type="text" value="" name="email" [(ngModel)]="email" ></ion-input>
+            <ion-icon class="ion-ios-plus"></ion-icon>
+        </ion-item> 
+        <ion-item>
+            <ion-label floating>Phone Number(main)</ion-label>
+            <ion-input type="text" value="" name="phoneNumber"[(ngModel)]="phoneNumber" ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Phone Number(alternate)</ion-label>
+            <ion-input type="text" value="" name="phoneNumber"[(ngModel)]="phoneNumber" ></ion-input>
+        </ion-item>    
+        <ion-item>
+            <ion-label floating>Address</ion-label>
+            <ion-input type="text" value="" name="address"[(ngModel)]="address" ></ion-input>
+        </ion-item>       
+        <br/><br/> 
+        <button type="submit" class="custom-button" block>Create</button>
+    </form>
+</ion-content>

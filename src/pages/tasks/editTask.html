@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar favorite>
+    <ion-title>Edit Task</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+   <form (ngSubmit)="editTask()">
+        <ion-item>
+            <ion-label floating>Title</ion-label>
+            <ion-input type="text" value="{{task.title}}" [(ngModel)]="title"></ion-input>         
+        </ion-item>                      
+        <ion-item>
+            <ion-label floating>Description</ion-label>
+            <ion-input type="text" value="{{task.description}}" [(ngModel)]="description" ></ion-input>
+        </ion-item>   
+        <ion-item>
+            <ion-label>Task Type</ion-label>
+			<ion-select style="text-align:center;"[(ngModel)]="taskType">
+			    <ion-option value="Motion Response">Motion Response</ion-option>
+			    <ion-option value="Discovery Response">Disovery Response</ion-option>
+			    <ion-option value="Pleading Response">Pleading Response</ion-option>
+			    <ion-option value="Mediation Statement">Mediation Statement</ion-option>
+			    <ion-option value="Other">Other</ion-option>
+			</ion-select>
+        </ion-item> 
+        <ion-item>
+            <ion-label>Client</ion-label>
+			<ion-select style="text-align:center;" [(ngModel)]="client">
+			    <ion-option *ngFor="let client of clients | async" value="{{client.name}}//{{client.$key}}">{{client.name}}</ion-option>
+			</ion-select>
+        </ion-item>   
+        <ion-item>
+            <ion-label>Due Date</ion-label>        
+			<!--<ion-datetime displayFormat="MM/DD/YYYY" value="{{task.dueDate}}" [(ngModel)]="date"></ion-datetime>-->
+        </ion-item>       
+        <br/><br/> 
+        <button type="submit" class="custom-button" block>Update</button>
+    </form>
+</ion-content>
