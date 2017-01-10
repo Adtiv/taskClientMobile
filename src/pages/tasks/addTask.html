@@ -15,10 +15,10 @@
         </ion-item>   
         <ion-item>
             <ion-label>Task Type</ion-label>
-            <!--
-			<ion-select style="text-align:center;"[(ngModel)]="taskType">
-
-			</ion-select>-->
+            <ion-select name="taskSelect"style="text-align:center;" [(ngModel)]="taskType">
+                <ion-option name="clients"*ngFor="let t of customTaskTypes | async" value="{{t.type}}">{{t.type}}</ion-option>
+            </ion-select>
+            <!--<ion-label><ion-icon name="arrow-down"></ion-icon></ion-label>-->
         </ion-item> 
         <ion-item>
             <ion-label>Client</ion-label>
@@ -28,9 +28,9 @@
         </ion-item>   
         <ion-item>
             <ion-label>Due Date</ion-label>        
-			<!--<ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="date"></ion-datetime>-->
+			<ion-datetime displayFormat="MM/DD/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
         </ion-item>       
         <br/><br/> 
-        <button type="submit" class="custom-button" block>Create</button>
+        <button ion-button type="submit" class="custom-button" block>Create</button>
     </form>
 </ion-content>

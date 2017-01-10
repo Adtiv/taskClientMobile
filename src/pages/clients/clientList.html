@@ -1,5 +1,8 @@
 <ion-header>
-  <ion-navbar favorite>
+  <ion-navbar color="theme">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       Clients
     </ion-title>
@@ -12,12 +15,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar
-    [(ngModel)]="searchClient"
-    [showCancelButton]="true"
-    (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)">
-  </ion-searchbar>
+  <ion-item color="primary">
+    <ion-searchbar
+      [(ngModel)]="searchClient"
+      [showCancelButton]="true"
+      (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+  </ion-item>
   <ion-list *ngIf="searchClient===''">
     <ion-list-header>Client List</ion-list-header>
     <ion-item-sliding *ngFor="let client of clients | async" (click)="navClient(client)">

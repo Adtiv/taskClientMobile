@@ -19,9 +19,14 @@ export class ClientListPage implements OnInit{
   constructor(private userService: UserService,private navCtrl: NavController,private clientService:ClientService) {
     this.userService.auth.onAuthStateChanged((auth)=>{
         this.clients=this.clientService.getClients();
+        if(this.clientService.initLocalClient){
+          console.log("GETS TO INIT LOCAL");
+          this.clientList=this.clientService.getLocalClientList();
+        }
+        /*
         clientService.localClientObservable.subscribe((clients)=>{
           this.clientList=this.clientService.getLocalClientList();
-        })
+        })*/
     })
     this.searchClient="";
     //setTimeout(() => {this.clientList=this.clientService.getLocalClientList();console.log("LIST "+this.clientList)}, 30000);  

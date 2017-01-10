@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content padding class="about">
-	TEST
+	<!--<ion-calendar (change)="onPeriodChange($event)"></ion-calendar>-->
+      <calendar [eventSource]="eventSource"
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate"
+        (onCurrectDateChanged)="onCurrentDateChanged($event)"
+        (onRangeChanged)="reloadSource(startTime, endTime)"
+        (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)"
+        step="30">
+      </calendar>
 </ion-content>

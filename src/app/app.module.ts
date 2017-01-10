@@ -10,6 +10,7 @@ import { ClientService } from '../pages/clients/clientService';
 import { SearchPipe } from '../pages/clients/search.pipe'
 
 import { CalendarPage } from '../pages/calendar/calendar';
+import { NgCalendarModule  } from 'ionic2-calendar';
 
 import { TaskListPage } from '../pages/tasks/taskList';
 import { AddTaskPage } from '../pages/tasks/addTask';
@@ -24,6 +25,7 @@ import { SignUpPage } from '../pages/user/signUp';
 import { UserService } from '../pages/user/userService';
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -58,6 +60,7 @@ const myFirebaseAuthConfig = {
     SignUpPage
   ],
   imports: [
+    NgCalendarModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],

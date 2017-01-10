@@ -59,14 +59,17 @@ export class ClientService implements OnInit{
             }
           })
       this.localClientObservable.subscribe(snapshots => {
+               var clientListLength = snapshots.length;
                snapshots.forEach(snapshot => {
                    //if(this.initLocalClient){
                      if(self.dupsMap[snapshot.$key]!==-1){
                        this.setLocalClients(snapshot.$key,snapshot.name,snapshot.email,snapshot.phoneNumber,snapshot.address);
                        self.dupsMap[snapshot.$key]=-1;
-                       console.log(this.clientList.length);
-                       if(this.clientList.length===85){
+                       console.log("dbLen  " + clientListLength +" localLen "+this.clientList.length);
+                       if(this.clientList.length===clientListLength){
                          console.log(this.clientList)
+                         this.initLocalClient=true;
+                         localStorage.setItem("clientList",JSON.stringify(this.clientList));
                        }
                      }
                    //}
@@ -111,7 +114,8 @@ export class ClientService implements OnInit{
     }
     getLocalClientList(){
       console.log("CLIENTLIST????" + this.clientList)
-      return this.clientList;
+      //return this.clientList;
+      return JSON.parse(localStorage.getItem('clientList'))
     }
     addClient(name, email,phoneNumber,address){
       /*

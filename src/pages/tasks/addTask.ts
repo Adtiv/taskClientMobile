@@ -13,6 +13,7 @@ let now = moment().format('LLLL');
 export class AddTaskPage implements OnInit {
   tasks:FirebaseListObservable<any[]>
   clients:FirebaseListObservable<any[]>
+  customTaskTypes:FirebaseListObservable<any[]>
   taskType:string;
   title:string;
   description:string;
@@ -24,6 +25,7 @@ export class AddTaskPage implements OnInit {
     this.auth.subscribe((auth)=>{
       if(auth!=null){
         this.clients=this.clientService.getClients();
+        this.customTaskTypes = this.taskService.customTaskTypes;
       }
     });
   }
@@ -35,7 +37,7 @@ export class AddTaskPage implements OnInit {
     console.log("difference" + differenceInDays);
     this.date = moment(this.date).format('MM/DD/YYYY');
     console.log(this.taskType + this.title + this.description+ this.date + this.client);
-    this.taskService.addTask(this.title,this.description,this.date,this.taskType,differenceInDays,this.client);
+    //this.taskService.addTask(this.title,this.description,this.date,this.taskType,differenceInDays,this.client);
   }
 
 }

@@ -3,6 +3,7 @@ import { NavController,LoadingController,AlertController } from 'ionic-angular';
 import { UserService } from './userService';
 import { Observable } from 'rxjs/Observable';
 import { TabsPage } from '../tabs/tabs'
+import { TaskListPage } from '../task/taskList'
 
 declare var firebase: any;
 @Component({

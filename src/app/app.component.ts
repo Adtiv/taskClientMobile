@@ -3,13 +3,12 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { HomePage } from '../pages/user/home';
 
-
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  selector: 'my-app'
 })
 export class MyApp {
   rootPage = HomePage;
-
   constructor(platform: Platform) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
