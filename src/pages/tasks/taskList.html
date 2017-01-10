@@ -17,16 +17,20 @@
     </ion-menu>
     <ion-title center>Tasks</ion-title>
     <ion-buttons end>
-      <button (click)="navAdd()">
-        <ion-icon name="add-circle"></ion-icon>
+      <button ion-button color="theme" (click)="navAdd()" large>
+        <ion-icon color="dark" name="add-circle" large></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-select style="text-align:center;" (ionChange)="filterTasks();"[(ngModel)]="taskType">
-    <ion-option *ngFor="let customType of customTaskTypes|async" value="customType.type">{{customType.type}}</ion-option>
-  </ion-select>
+  <ion-item>
+    <ion-label>Task Filters: </ion-label>
+    <ion-select style="text-align:center;" (ionChange)="filterTasks();"[(ngModel)]="taskType">
+      <ion-option value="All Tasks">All Tasks</ion-option>
+      <ion-option *ngFor="let customType of customTaskTypes|async" value="customType.type">{{customType.type}}</ion-option>
+    </ion-select>
+  </ion-item>
   <ion-segment [(ngModel)]="filterColor" primary>
     <ion-segment-button value="white" (ionSelect)="filterByColor('none')">
       All
@@ -42,9 +46,9 @@
     </ion-segment-button>
   </ion-segment>
   <ion-list>
-    <ion-list-header></ion-list-header>
+    <ion-list-header>Showing <i>{{taskType}}</i></ion-list-header>
     <ion-item-sliding *ngFor="let task of tasks | async" (click)="navTask(task)">
-      <ion-item [style.background-color]="getStyle(task)" style="text-align:center;"><ion-icon style="float:right;"name="arrow-forward"></ion-icon>
+      <ion-item [style.background-color]="getStyle(task)" style="text-align:center;"><ion-icon style="float:right;" name="ios-arrow-forward"></ion-icon>
         <h2><b>{{task.title}}</b></h2>
         <p style="float:left;color:black;"><b>{{task.daysTillDue}}</b> <span *ngIf="task.daysTillDue!=1">days</span><span *ngIf="task.daysTillDue==1">day</span></p>
       </ion-item>
