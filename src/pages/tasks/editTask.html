@@ -7,26 +7,20 @@
    <form (ngSubmit)="editTask()">
         <ion-item>
             <ion-label floating>Title</ion-label>
-            <ion-input type="text" value="{{task.title}}" [(ngModel)]="title"></ion-input>         
+            <ion-input type="text" name="title" value="{{task.title}}" [(ngModel)]="title"></ion-input>         
         </ion-item>                      
         <ion-item>
             <ion-label floating>Description</ion-label>
-            <ion-input type="text" value="{{task.description}}" [(ngModel)]="description" ></ion-input>
+            <ion-input type="text" name="description" value="{{task.description}}" [(ngModel)]="description" ></ion-input>
         </ion-item>   
         <ion-item>
             <ion-label>Task Type</ion-label>
-			<ion-select style="text-align:center;"[(ngModel)]="taskType">
-			    <ion-option value="Motion Response">Motion Response</ion-option>
-			    <ion-option value="Discovery Response">Disovery Response</ion-option>
-			    <ion-option value="Pleading Response">Pleading Response</ion-option>
-			    <ion-option value="Mediation Statement">Mediation Statement</ion-option>
-			    <ion-option value="Other">Other</ion-option>
-			</ion-select>
+            
         </ion-item> 
         <ion-item>
             <ion-label>Client</ion-label>
 			<ion-select style="text-align:center;" [(ngModel)]="client">
-			    <ion-option *ngFor="let client of clients | async" value="{{client.name}}//{{client.$key}}">{{client.name}}</ion-option>
+			    <ion-option name="client" *ngFor="let client of clients | async" value="{{client.name}}//{{client.$key}}">{{client.name}}</ion-option>
 			</ion-select>
         </ion-item>   
         <ion-item>

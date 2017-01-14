@@ -33,6 +33,9 @@ export class TaskService implements OnInit{
     constructor(private auth:FirebaseAuth,private af: AngularFire,private userService: UserService){ 
       this.userService.auth.onAuthStateChanged((user)=>{
             this.userId=this.userService.uid;
+            this.startAtVal=0;
+            this.endAtVal=1000;
+            this.taskFilter="All Tasks";
             this.setTasks();
             this.setTaskTypes();
       });
@@ -40,9 +43,6 @@ export class TaskService implements OnInit{
       setInterval(() => { this.taskDateCountdown() }, 60000*1);   
     }
     ngOnInit(){
-      this.startAtVal=0;
-      this.endAtVal=1000;
-      this.taskFilter="none";
     }
     setTasks(){
       this.tasks = this.af.database.list('tasks/'+this.userId, { preserveSnapshot: true });
@@ -154,8 +154,9 @@ export class TaskService implements OnInit{
     getTasks(filter){
       console.log(this.userId);
       this.taskFilter=filter;
-      if(this.userId!=null){
-        if(this.taskFilter=='none'){
+      console.log("STARTING AT?"+this.startAtVal)
+      if(this.userId!==null){
+        if(this.taskFilter==='All Tasks'){
           this.tasks = this.af.database.list('tasks/'+this.userId,{
             query: {
               orderByChild: 'daysTillDue',
@@ -165,7 +166,7 @@ export class TaskService implements OnInit{
           });
           return this.tasks;
         }
-        if(this.taskFilter=='past'){
+        if(this.taskFilter==='past'){
           this.tasks = this.af.database.list('tasks/'+this.userId,{
             query: {
               orderByChild: 'daysTillDue',

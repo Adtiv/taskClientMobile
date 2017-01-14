@@ -26,7 +26,7 @@
   <ion-list *ngIf="searchClient===''">
     <ion-list-header>Client List</ion-list-header>
     <ion-item-sliding *ngFor="let client of clients | async" (click)="navClient(client)">
-      <ion-item><ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-item><ion-icon name="ios-arrow-forward" item-right></ion-icon>
         <ion-icon name="person" item-left></ion-icon>
           <h2 style="color:rgb(100,100,175)"><b>{{client.name}}</b></h2>
           <p>{{client.phoneNumber}}</p>
@@ -47,7 +47,7 @@
   <ion-list *ngIf="searchClient!==''">
     <ion-list-header>Client List</ion-list-header>
     <ion-item-sliding *ngFor="let client of clientList | search: searchClient" (click)="navClient(client)">
-      <ion-item><ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-item><ion-icon name="ios-arrow-forward" item-right></ion-icon>
         <ion-icon name="person" item-left></ion-icon>
           <h2 style="color:rgb(100,100,175)"><b>{{client.name}}</b></h2>
           <p>{{client.phoneNumber}}</p>

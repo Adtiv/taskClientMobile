@@ -21,8 +21,8 @@ export class EditTaskPage implements OnInit {
         this.task=this.taskService.task;
         this.title=this.taskService.taskTitle;
         this.description=this.taskService.taskDescription;
-        this.taskType=this.taskService.taskType;
-        this.date=this.taskService.taskDueDate;
+       //this.taskType=this.taskService.taskType;
+        //this.date=this.taskService.taskDueDate;
       }
     });
   }

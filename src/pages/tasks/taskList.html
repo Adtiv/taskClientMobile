@@ -1,6 +1,6 @@
 <ion-header >
   <ion-navbar color="theme">
-    <button ion-button menuToggle="navItems">
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-menu [content]="navItems">
@@ -11,10 +11,11 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <!--<button ion-button menuClose ion-item detail-none>Close Menu</button>-->
+          <button ion-button menuClose detail-none>Close Menu</button>
         </ion-list>
       </ion-content>
     </ion-menu>
+    <ion-nav [root]="menuPage" #navItems swipeBackEnabled="false"></ion-nav>
     <ion-title center>Tasks</ion-title>
     <ion-buttons end>
       <button ion-button color="theme" (click)="navAdd()" large>
@@ -23,41 +24,41 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content  padding>
   <ion-item>
     <ion-label>Task Filters: </ion-label>
-    <ion-select style="text-align:center;" (ionChange)="filterTasks();"[(ngModel)]="taskType">
-      <ion-option value="All Tasks">All Tasks</ion-option>
-      <ion-option *ngFor="let customType of customTaskTypes|async" value="customType.type">{{customType.type}}</ion-option>
+    <ion-select style="text-align:center;" [(ngModel)]="taskType" multiple="false">
+      <ion-option value="All Tasks" (ionSelect)="filterTasks('All Tasks');" >All Tasks</ion-option>
+      <ion-option *ngFor="let customType of customTaskTypes|async" value="{{customType.type}}" (ionSelect)="filterTasks(customType.type);">{{customType.type}}</ion-option>
     </ion-select>
   </ion-item>
-  <ion-segment [(ngModel)]="filterColor" primary>
+  <ion-segment [(ngModel)]="filterColor" padding>
     <ion-segment-button value="white" (ionSelect)="filterByColor('none')">
       All
     </ion-segment-button>
     <ion-segment-button style="background-color:rgba(255,0,0,.8);"value="red" (ionSelect)="filterByColor('red')">
-      urgent
+      Urgent
     </ion-segment-button>
     <ion-segment-button style="background-color:rgba(255,255,0,.8);"value="yellow" (ionSelect)="filterByColor('yellow')">
-      upcoming
+      Upcoming
     </ion-segment-button>
     <ion-segment-button style="background-color:rgba(0,255,0,.8);"value="green" (ionSelect)="filterByColor('green')">
-      future
+      Future
     </ion-segment-button>
   </ion-segment>
   <ion-list>
-    <ion-list-header>Showing <i>{{taskType}}</i></ion-list-header>
-    <ion-item-sliding *ngFor="let task of tasks | async" (click)="navTask(task)">
-      <ion-item [style.background-color]="getStyle(task)" style="text-align:center;"><ion-icon style="float:right;" name="ios-arrow-forward"></ion-icon>
+    <ion-list-header style="text-align: center;">Showing <i>{{taskType}}</i></ion-list-header>
+    <ion-item-sliding *ngFor="let task of tasks | async" (click)="navTask(task)" style="border-bottom:1px solid black;margin-bottom: 2%;" text-wrap no-lines>
+      <ion-item [style.background-color]="getStyle(task)" style="text-align:center;"><ion-icon style="float:right;" name="ios-arrow-forward" no-lines></ion-icon>
         <h2><b>{{task.title}}</b></h2>
         <p style="float:left;color:black;"><b>{{task.daysTillDue}}</b> <span *ngIf="task.daysTillDue!=1">days</span><span *ngIf="task.daysTillDue==1">day</span></p>
       </ion-item>
-      <ion-item-options>
-        <button (click)="navEditTask(task)" primary>
+      <ion-item-options no-lines>
+        <button ion-button (click)="navEditTask(task)" color="primary">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button (click)="deleteTask(task)"danger>
+        <button ion-button (click)="deleteTask(task)" color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>

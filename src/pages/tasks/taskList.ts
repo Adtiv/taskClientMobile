@@ -23,15 +23,12 @@ export class TaskListPage implements OnInit {
   ngOnInit(){
     //console.log("box " + BoxSDK);
     //console.log('BOX??');
-    this.taskType="none";
+    this.taskType="All Tasks";
   	this.auth.subscribe((auth)=>{
   	  	if(auth!=null){
-  	  		this.tasks= this.taskService.getTasks('none');
+  	  		this.tasks= this.taskService.getTasks('All Tasks');
           this.customTaskTypes = this.taskService.customTaskTypes;
           this.taskType="All Tasks"
-          this.customTaskTypes.subscribe((types)=>{
-            console.log(types)
-          })
   	  	}
   	})
   }
@@ -51,7 +48,8 @@ export class TaskListPage implements OnInit {
     this.taskService.taskClients=this.af.database.list('taskClients/'+task.$key);
     this.navCtrl.push(TaskDetailPage);
   }
-  filterTasks(){
+  filterTasks(taskType){
+    this.taskType=taskType;
     console.log(this.taskType);
     this.tasks = this.taskService.getTasks(this.taskType);
     return false;
