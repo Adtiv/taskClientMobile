@@ -253,6 +253,7 @@ export class TaskService implements OnInit{
       this.setTaskTypes();
     }
     removeTaskType(types){
+      console.log("TYPES" + types);
       this.af.database.object("users/"+this.userService.uid+"/types/"+types.$key).remove();
       this.af.database.list('customTaskFilters/'+this.userService.uid+'/'+types.type).remove();
       this.af.database.list('tasks/'+this.userId).subscribe(snapshots => {

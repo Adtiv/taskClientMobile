@@ -18,12 +18,17 @@ export class TaskListPage implements OnInit {
   taskClients:FirebaseListObservable<any[]>
   customTaskTypes:FirebaseListObservable<any[]>
   taskType:string;
+  editTaskTypes:boolean;
+  addTypeBool:boolean;
+  newType:string;
   constructor(private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
   }
   ngOnInit(){
     //console.log("box " + BoxSDK);
     //console.log('BOX??');
     this.taskType="All Tasks";
+    this.editTaskTypes=false;
+    this.addTypeBool=false;
   	this.auth.subscribe((auth)=>{
   	  	if(auth!=null){
   	  		this.tasks= this.taskService.getTasks('All Tasks');
@@ -49,14 +54,30 @@ export class TaskListPage implements OnInit {
     this.navCtrl.push(TaskDetailPage);
   }
   filterTasks(taskType){
-    this.taskType=taskType;
-    console.log(this.taskType);
-    this.tasks = this.taskService.getTasks(this.taskType);
+    if(taskType!=="Add Filters"){
+      this.taskType=taskType;
+      this.tasks = this.taskService.getTasks(this.taskType);
+    }
+    else{
+      this.editTaskTypes = !this.editTaskTypes;
+    }
     return false;
+  }
+  closeEditTypes(){
+    this.editTaskTypes=!this.editTaskTypes;
+    this.taskType='All Tasks';
   }
   filterByColor(filterColor){
     this.taskService.filterByColor(filterColor);
     this.tasks = this.taskService.getTasks(this.taskService.taskFilter);
+  }
+  addFilter(){
+    console.log(this.newType);
+    this.taskService.addTaskType(this.newType);
+  }
+  removeFilter(filter){
+    console.log(filter);
+    this.taskService.removeTaskType(filter);
   }
   deleteTask(task){
     this.taskService.deleteTask(task.$key, task.taskType);
