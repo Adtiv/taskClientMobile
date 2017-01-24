@@ -8,7 +8,7 @@
     </ion-title>
     <ion-buttons end>
       <button ion-button color="theme" (click)="navAdd()">
-        <ion-icon color="dark" name="md-person-add"></ion-icon>
+        <ion-icon color="light" name="md-person-add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -24,7 +24,7 @@
     </ion-searchbar>
   </ion-item>
   <ion-list *ngIf="searchClient===''">
-    <ion-list-header>Client List</ion-list-header>
+    <ion-list-header>Client List <span>{{clientListLength}}</span></ion-list-header>
     <ion-item-sliding *ngFor="let client of clients | async" (click)="navClient(client)">
       <ion-item><ion-icon name="ios-arrow-forward" item-right></ion-icon>
         <ion-icon name="person" item-left></ion-icon>

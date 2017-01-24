@@ -1,8 +1,9 @@
 import {Injectable, OnInit} from '@angular/core';
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import {UserService} from '../user/userService';
+import {Dropbox} from './dropboxService';
 import {FirebaseAuth, FirebaseListFactory} from 'angularfire2';
-
+//import * as BoxSDK from 'box-node-sdk';
 //deleting client from one source without typing anything in search copies local list
 //adding client before typing anything in search copies list for both sources if other source hasnt typed anything in search
 //same with update
@@ -15,6 +16,7 @@ export class ClientService implements OnInit{
     af: AngularFire;
     userService: UserService;
     userId;
+    folders:any;
     clientList: Client[];
     clientName:string;
     clientEmail:string;
@@ -24,7 +26,8 @@ export class ClientService implements OnInit{
     initAddClient:boolean;
     initLocalClient:boolean;
     dupsMap : { [key:string]:number; } = {};
-    constructor(af: AngularFire,userService: UserService){
+    constructor(af: AngularFire,userService: UserService,private dropbox:Dropbox){
+      //console.log(BoxSDK);
       this.af=af;
       this.userService=userService;
       this.clientList=[];

@@ -265,8 +265,14 @@ export class TaskService implements OnInit{
       })
       this.setTaskTypes();
     }
+    parseMobileDateFormat(dueDate){
+      var formatted = "";
+      formatted+=dueDate.substring(5,7)+'/'+dueDate.substring(8,10)+'/'+dueDate.substring(0,4);
+      return formatted;
+    }
     addTask(title, description, dueDate,taskType,daysTillDue,client,dueTime,differenceInHours){
-      console.log(title+"   "+description+" "+dueDate+" " + taskType);
+      console.log(title+"   "+description+" "+dueDate+" " + taskType+" "+daysTillDue+" "+client+" "+dueTime+" "+differenceInHours);
+      dueDate=this.parseMobileDateFormat(dueDate);
       this.tasks=this.af.database.list('tasks/'+this.userService.uid);
       this.taskKey = this.tasks.push({uid:this.userService.uid,title:title,description:description,dueDate:dueDate,dueTime:dueTime,taskType:taskType,daysTillDue:daysTillDue,hoursTillDue:differenceInHours}).key;
       this.filteredTask=this.af.database.object('customTaskFilters/'+this.userService.uid+'/'+taskType+'/'+this.taskKey);

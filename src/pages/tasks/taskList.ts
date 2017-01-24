@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,AlertController} from 'ionic-angular';
 import {AngularFire, AngularFireAuth, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import {UserService} from '../user/userService'
 import {TaskService} from './taskService'
@@ -21,7 +21,8 @@ export class TaskListPage implements OnInit {
   editTaskTypes:boolean;
   addTypeBool:boolean;
   newType:string;
-  constructor(private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
+  pastTasks:boolean;
+  constructor(private alert:AlertController,private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
   }
   ngOnInit(){
     //console.log("box " + BoxSDK);
@@ -29,6 +30,7 @@ export class TaskListPage implements OnInit {
     this.taskType="All Tasks";
     this.editTaskTypes=false;
     this.addTypeBool=false;
+    this.pastTasks=false;
   	this.auth.subscribe((auth)=>{
   	  	if(auth!=null){
   	  		this.tasks= this.taskService.getTasks('All Tasks');
@@ -79,9 +81,70 @@ export class TaskListPage implements OnInit {
     console.log(filter);
     this.taskService.removeTaskType(filter);
   }
+  showPast(){
+    if(!this.pastTasks){
+      this.tasks = this.taskService.getTasks("past");
+      this.pastTasks = true;
+    }
+    else{
+      this.tasks = this.taskService.getTasks("All Tasks");
+      this.pastTasks = false;
+    }
+  }
+  historyToggle(){
+    if(!this.pastTasks){
+      return "rgb(0,0,255)";
+    }
+    else{
+      console.log("GETS TO DANGER");
+      return "rgb(255,0,0)";
+    }
+  }
   deleteTask(task){
-    this.taskService.deleteTask(task.$key, task.taskType);
+    let alert = this.alert.create({
+      title: 'Delete',
+      message: 'Delete Task?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.taskService.deleteTask(task.$key,task.taskType);
+            return false;
+          }
+        }
+      ]
+    });
+    //this.taskService.deleteTask(task.$key, task.taskType);
     return false;
+  }
+  deletePast(){
+    let alert = this.alert.create({
+      title: 'Task History',
+      message: 'Delete Completed Tasks?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.taskService.deletePastTasks();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
   navAdd(){
     this.navCtrl.push(AddTaskPage);

@@ -19,7 +19,7 @@
         </ion-item> 
         <ion-item>
             <ion-label>Client</ion-label>
-			<ion-select style="text-align:center;" [(ngModel)]="client">
+			<ion-select name="clients" style="text-align:center;" [(ngModel)]="client">
 			    <ion-option name="client" *ngFor="let client of clients | async" value="{{client.name}}//{{client.$key}}">{{client.name}}</ion-option>
 			</ion-select>
         </ion-item>   

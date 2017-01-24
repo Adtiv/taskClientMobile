@@ -1,19 +1,25 @@
 <ion-header>
-  <ion-navbar favorite>
-    <ion-title>Calendar</ion-title>
-  </ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>
+      Ionic 2 Dropbox
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button *ngIf="depth" (click)="goBack()"><ion-icon name="arrow-back"></ion-icon> Back</button> 
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
-
-<ion-content padding class="about">
-	<!--<ion-calendar (change)="onPeriodChange($event)"></ion-calendar>-->
-      <calendar [eventSource]="eventSource"
-        [calendarMode]="calendar.mode"
-        [currentDate]="calendar.currentDate"
-        (onCurrectDateChanged)="onCurrentDateChanged($event)"
-        (onRangeChanged)="reloadSource(startTime, endTime)"
-        (onEventSelected)="onEventSelected($event)"
-        (onTitleChanged)="onViewTitleChanged($event)"
-        (onTimeSelected)="onTimeSelected($event)"
-        step="30">
-      </calendar>
+ 
+<ion-content>
+ 
+  <ion-list>
+    <div *ngFor="let folder of folders">
+      <ion-item *ngIf="folder['.tag'] == 'folder'" detail-push (click)="openFolder(folder.path_lower)">
+        {{folder.name}}
+      </ion-item>
+      <ion-item *ngIf="folder['.tag'] == 'file'">
+        {{folder.name}}
+      </ion-item>
+    </div>
+  </ion-list>
+ 
 </ion-content>

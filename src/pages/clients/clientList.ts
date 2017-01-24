@@ -15,13 +15,15 @@ import {UserService} from '../user/userService'
 export class ClientListPage implements OnInit{
   clients:FirebaseListObservable<any[]>;
   searchClient:string;
-  clientList;
+  clientList:any;
+  clientListLength:Number;
   constructor(private userService: UserService,private navCtrl: NavController,private clientService:ClientService) {
     this.userService.auth.onAuthStateChanged((auth)=>{
         this.clients=this.clientService.getClients();
         if(this.clientService.initLocalClient){
           console.log("GETS TO INIT LOCAL");
           this.clientList=this.clientService.getLocalClientList();
+          this.clientListLength=this.clientList.length;
         }
         /*
         clientService.localClientObservable.subscribe((clients)=>{

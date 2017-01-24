@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,AlertController} from 'ionic-angular';
 import {AngularFire, AngularFireAuth, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
-import {UserService} from '../user/userService'
+import {UserService} from '../user/userService';
 import {TaskService} from './taskService';
+import {TaskListPage} from './taskList';
+import {EditTaskPage} from './editTask'
 @Component({
   templateUrl: 'taskDetail.html'
 })
@@ -11,9 +13,9 @@ export class TaskDetailPage implements OnInit {
   taskType:string;
   title:string;
   description:string;
-  task:FirebaseObjectObservable<any[]>;
+  task:FirebaseObjectObservable<any>;
   date:string;
-  constructor(private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
+  constructor(private alert:AlertController,private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
   }
   ngOnInit(){
     this.auth.subscribe((auth)=>{
@@ -22,5 +24,30 @@ export class TaskDetailPage implements OnInit {
         this.taskClients=this.taskService.getTaskClients();
       }
     });
+  }
+  navEditTask(){
+    this.navCtrl.push(EditTaskPage);
+  }
+  deleteTask(key,taskType){
+    let alert = this.alert.create({
+      title: 'Delete Task?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.taskService.deleteTask(key,taskType);
+            this.navCtrl.setRoot(TaskListPage);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar favorite>
+<ion-header >
+  <ion-navbar color="theme">
     <ion-title></ion-title>
   </ion-navbar>
 </ion-header>
@@ -25,4 +25,10 @@
           {{taskClient.client}}
         </ion-item>
     </ion-list>
+    <button ion-button (click)="navEditTask()" color="primary">
+      <ion-icon name="create"></ion-icon>
+    </button>
+    <button ion-button (click)="deleteTask(task.$key,task.taskType)" color="danger" style="float:right">
+      <ion-icon name="trash"></ion-icon>
+    </button>
 </ion-content>

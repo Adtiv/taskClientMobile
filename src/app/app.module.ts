@@ -8,6 +8,8 @@ import { EditClientPage } from '../pages/clients/editClient';
 import { ClientDetailPage } from '../pages/clients/clientDetail';
 import { ClientService } from '../pages/clients/clientService';
 import { SearchPipe } from '../pages/clients/search.pipe'
+import { Dropbox } from '../pages/clients/dropboxService';
+
 
 import { CalendarPage } from '../pages/calendar/calendar';
 import { NgCalendarModule  } from 'ionic2-calendar';
@@ -85,7 +87,8 @@ const myFirebaseAuthConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
     ClientService,
-    TaskService
+    TaskService,
+    Dropbox
   ]
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar favorite>
+  <ion-navbar color="theme">
     <ion-title>New Task</ion-title>
   </ion-navbar>
 </ion-header>
@@ -30,6 +30,10 @@
             <ion-label>Due Date</ion-label>        
 			<ion-datetime displayFormat="MM/DD/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
         </ion-item>       
+        <ion-item>
+          <ion-label>Due Time</ion-label>
+          <ion-datetime name="time" displayFormat="hh:mm A" pickerFormat="hh:mm A" [(ngModel)]="time"></ion-datetime>
+        </ion-item>
         <br/><br/> 
         <button ion-button type="submit" class="custom-button" block>Create</button>
     </form>
