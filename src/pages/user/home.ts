@@ -8,7 +8,8 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'an
 //declare var LoginPage:any;
 //declare var SignUpPage:any;
 //declare var CameraViewPage:any;
-declare var firebase : any;
+//declare var firebase : any;
+import * as firebase from 'firebase';
 declare var cordova;
 var x;
 @Component({

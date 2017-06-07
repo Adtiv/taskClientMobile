@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { TabsPage } from '../tabs/tabs'
 import { TaskListPage } from '../task/taskList'
 
-declare var firebase: any;
+//declare var firebase: any;
+import * as firebase from 'firebase';
+
 @Component({
   templateUrl: 'login.html'
 })

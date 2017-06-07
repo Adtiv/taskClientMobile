@@ -2,7 +2,8 @@ import {Injectable,OnInit} from '@angular/core';
 //import {LoadingController} from 'ionic-angular'
 import {AngularFire, FirebaseListObservable, FirebaseObjectObservable,FirebaseAuth} from 'angularfire2';
 
-declare var firebase: any;
+//declare var firebase: any;
+import * as firebase from 'firebase';
 
 @Injectable()
 export class UserService implements OnInit{

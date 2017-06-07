@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import {FileOpener} from 'ionic-native';
+import {InAppBrowser} from 'ionic-native';
 import 'rxjs/add/operator/map';
 
+declare var ActiveXObject:any;
+declare var cordova:any;
 @Injectable()
 export class Dropbox {
  
@@ -58,7 +62,36 @@ export class Dropbox {
 	    .map(res => res.json());
 	 
 	}
-	 
+	downloadFile(path,loading){
+		var url = "https://api-content.dropbox.com/1/files/auto/" + path;
+		var result;
+		var xhr;
+		if ((<any>window).XMLHttpRequest) {
+		    xhr= new XMLHttpRequest();
+		} else {
+		    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		var self = this;
+		xhr.onreadystatechange = function() {
+		    if (xhr.readyState === 4 && xhr.status === 200) {
+		        result = xhr.responseText;
+		        loading.dismiss();
+		    	console.log(xhr.getResponseHeader('content-type'));
+		    	console.log(xhr.responseURL);
+		        //console.log("result "+result);
+		        let browser = new InAppBrowser(xhr.responseURL);
+		        browser.show();
+				/*FileOpener.open(
+				    xhr.responseURL, 
+				    xhr.getResponseHeader('content-type')
+				);*/
+		    }
+		}
+		xhr.open("GET", url, true);
+		// xhr.setRequestHeader("access_token", token);
+		xhr.setRequestHeader("Authorization", "Bearer " + this.accessToken);
+		xhr.send();
+	}
 	goBackFolder(){
 	 
 	  if(this.folderHistory.length > 0){

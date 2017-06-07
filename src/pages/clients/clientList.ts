@@ -8,7 +8,6 @@ import {EditClientPage} from './editClient'
 import {SearchPipe} from './search.pipe'
 import {UserService} from '../user/userService'
 
-
 @Component({
   templateUrl: 'clientList.html'
 })
@@ -17,6 +16,7 @@ export class ClientListPage implements OnInit{
   searchClient:string;
   clientList:any;
   clientListLength:Number;
+  files:any;
   constructor(private userService: UserService,private navCtrl: NavController,private clientService:ClientService) {
     this.userService.auth.onAuthStateChanged((auth)=>{
         this.clients=this.clientService.getClients();
@@ -45,8 +45,10 @@ export class ClientListPage implements OnInit{
     this.clientService.deleteClient(clientKey);
     this.searchClient="";
   }
-  navClient(client){
+  navClient(client, name){
     this.clientService.client=client;
+    this.clientService.clientName=name;
+    console.log("name"+name);
     this.clientService.setClientTasks(client.$key);
     this.navCtrl.push(ClientDetailPage);
   }

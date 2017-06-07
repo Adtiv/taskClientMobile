@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar favorite>
+  <ion-navbar color="theme">
     <ion-title>{{client.name}}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -24,8 +24,8 @@
     </ion-list>
     <ion-list>
         <ion-list-header>Documents</ion-list-header>
-        <ion-item style="text-align:center;">
-              <ion-icon name="document" item-left></ion-icon><div style="white-space: normal;"><span></span></div>
+        <ion-item *ngFor= "let file of files" style="text-align:center;" (click)="downloadFile(file.name)">
+              <ion-icon name="document" item-left></ion-icon><div style="white-space: normal;"><span>        {{file.name}}</span></div>
         </ion-item>   
     </ion-list>  
     <ion-list>

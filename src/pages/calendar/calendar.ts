@@ -10,7 +10,7 @@ export class CalendarPage {
  
   depth: number = 0;
   folders: any;
- 
+  files: any;
   constructor(public navCtrl: NavController, public dropbox: Dropbox, public Loading: LoadingController) {
  
   }
@@ -19,7 +19,7 @@ export class CalendarPage {
  
       this.dropbox.setAccessToken("vSWm2_Qnc1IAAAAAAAAOrliJEIDiA7VJNsm-XIqKhn5cCS9nht5jdBcm9xvyS7uB");
       this.folders = [];
- 
+ 	  this.files = [];
       let loading = this.Loading.create({
         content: 'Syncing from Dropbox...'
       });
@@ -36,7 +36,7 @@ export class CalendarPage {
   }
  
   openFolder(path){
- 
+ 	console.log(path);
     let loading = this.Loading.create({
       content: 'Syncing from Dropbox...'
     });
@@ -52,7 +52,6 @@ export class CalendarPage {
     });
  
   }
- 
   goBack(){
  
     let loading = this.Loading.create({

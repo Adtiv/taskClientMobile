@@ -1,6 +1,5 @@
 {
   "name": "taskClient",
   "app_id": "dde719e7",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }

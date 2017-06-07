@@ -1,24 +1,51 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,LoadingController} from 'ionic-angular';
 import {AngularFire, AngularFireAuth, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import {UserService} from '../user/userService'
 import {ClientService} from './clientService'
 import {TaskService} from '../tasks/taskService';
+import { Dropbox } from '../clients/dropboxService';
 @Component({
   templateUrl: 'clientDetail.html'
 })
 export class ClientDetailPage implements OnInit {
   clientTasks:FirebaseListObservable<any[]>
-  client:FirebaseObjectObservable<any[]>;
-  constructor(private clientService:ClientService,private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
+  client:FirebaseObjectObservable<any>;
+  name:string;
+  files:any;
+  path:string;
+  constructor(private Loading:LoadingController,private dropbox: Dropbox,private clientService:ClientService,private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
   }
   ngOnInit(){
     this.auth.subscribe((auth)=>{
       if(auth!=null){
+        this.files = [];
+        this.dropbox.setAccessToken("vSWm2_Qnc1IAAAAAAAAOrliJEIDiA7VJNsm-XIqKhn5cCS9nht5jdBcm9xvyS7uB");
+        var name;
         this.client=this.clientService.getClient();
         this.clientTasks=this.clientService.getClientTasks();
+        console.log("before");
+        this.name=this.clientService.clientName;
+        this.path = '/clients/'+"Anthony D";
+        console.log("path"+this.path);
+        this.dropbox.getFolders(this.path).subscribe(data => {
+          this.files = data.entries;
+          //this.depth++;
+        }, err => {
+          console.log(err);
+        });  
+    
       }
     });
+  }
+  downloadFile(filename){
+    console.log("fileName"+filename);
+    let loading = this.Loading.create({
+        content: 'Downloading from Dropbox...'
+      });
+ 
+      loading.present();
+    this.dropbox.downloadFile(this.path+'/'+filename,loading);
   }
   getStyle(clientTask){
     if(clientTask.days<=2){
