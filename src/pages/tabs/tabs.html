@@ -1,5 +1,34 @@
-<ion-tabs style="" color="theme">
+<!--<ion-tabs style="" color="theme">
   <ion-tab [root]="tab1Root" tabTitle="Tasks" color="danger" tabIcon="checkmark"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Clients" tabIcon="people"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Calendar" tabIcon="calendar"></ion-tab>
 </ion-tabs>
+-->
+<ion-menu [content]="mycontent">
+
+	<ion-header>
+	  <ion-navbar>
+	    <!--<button ion-button menuToggle>
+	      <ion-icon name="close"></ion-icon>
+	    </button>-->
+	    <ion-title>Menu</ion-title>
+	  </ion-navbar>
+	</ion-header>
+
+    <ion-content >
+        <ion-list>
+             <button ion-item menuClose (click)="openPage(taskPage)">
+                <ion-icon name="checkbox"></ion-icon> Tasks
+            </button>
+            <button ion-item menuClose (click)="openPage(clientPage)">
+                <ion-icon name="people"></ion-icon> Clients
+            </button>
+            <button ion-item menuClose (click)="openPage(calendarPage)">
+                <ion-icon name="calendar"></ion-icon> Calendar
+            </button>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
