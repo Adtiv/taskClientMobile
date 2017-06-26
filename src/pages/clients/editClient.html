@@ -7,23 +7,23 @@
    <form (ngSubmit)="editClient()">
         <ion-item>
             <ion-label floating>Name</ion-label>
-            <ion-input type="text" value="{{client.name}}" [(ngModel)]="name"></ion-input>         
+            <ion-input name="name" type="text" value="{{client.name}}" [(ngModel)]="name"></ion-input>         
         </ion-item>                      
         <ion-item>
             <ion-label floating>Email</ion-label>
-            <ion-input id="email"type="text" value="{{client.name}}" [(ngModel)]="email" ></ion-input>
+            <ion-input name="email" id="email" type="text" value="{{client.email}}" [(ngModel)]="email" ></ion-input>
         </ion-item> 
         <ion-item>
             <ion-label floating>Phone Number(main)</ion-label>
-            <ion-input id="phoneNumber"type="text" value="{{client.phoneNumber}}" [(ngModel)]="phoneNumber" ></ion-input>
+            <ion-input name="phoneNumber" id="phoneNumber"type="text" value="{{client.phoneNumber}}" [(ngModel)]="phoneNumber" ></ion-input>
         </ion-item>
         <ion-item>
             <ion-label floating>Phone Number(alternate)</ion-label>
-            <ion-input id="phoneNumber"type="text" value="{{client.phoneNumber}}" [(ngModel)]="phoneNumber" ></ion-input>
+            <ion-input name="phoneNumber" id="phoneNumber"type="text" value="{{client.phoneNumber}}" [(ngModel)]="phoneNumber" ></ion-input>
         </ion-item>    
         <ion-item>
             <ion-label floating>Address</ion-label>
-            <ion-input id="address"type="text" value="{{client.address}}" [(ngModel)]="address" ></ion-input>
+            <ion-input name="address" id="address"type="text" value="{{client.address}}" [(ngModel)]="address" ></ion-input>
         </ion-item>       
         <br/><br/> 
         <button type="submit" class="custom-button" block>Update</button>

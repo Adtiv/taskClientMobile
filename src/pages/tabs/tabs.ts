@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { TaskListPage } from '../tasks/taskList';
 import { ClientListPage } from '../clients/clientList';
 import { CalendarPage } from '../calendar/calendar';
+import { UserService } from '../user/userService';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -27,12 +28,15 @@ export class TabsPage {
   private taskPage;
   private clientPage;
   private calendarPage;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private userName;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService) {
     this.rootPage = TaskListPage;
     this.taskPage = TaskListPage;
     this.clientPage = ClientListPage;
     this.calendarPage = CalendarPage;
+    this.userService.auth.onAuthStateChanged((user)=>{
+        this.userName=this.userService.currentUser;
+    });
   }
 
   ionViewDidLoad() {

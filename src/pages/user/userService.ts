@@ -13,6 +13,7 @@ export class UserService implements OnInit{
     users: FirebaseListObservable<any[]>;
     public auth:any;
     public af:AngularFire;
+    public currentUser:string;
     constructor(private angularFire:AngularFire){
         this.af=angularFire;
         this.auth=firebase.auth();

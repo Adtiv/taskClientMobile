@@ -26,7 +26,8 @@ export class ClientDetailPage implements OnInit {
         this.clientTasks=this.clientService.getClientTasks();
         console.log("before");
         this.name=this.clientService.clientName;
-        this.path = '/clients/'+"Anthony D";
+        console.log("NAME " + this.name);
+        this.path = '/clients/'+this.name;
         console.log("path"+this.path);
         this.dropbox.getFolders(this.path).subscribe(data => {
           this.files = data.entries;

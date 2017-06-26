@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+//import { CalendarModule } from 'angular-calendar';
+import { ScheduleModule } from 'primeng/components/schedule/schedule';
 
 import { ClientListPage } from '../pages/clients/clientList';
 import { AddClientPage } from '../pages/clients/addClient';
@@ -46,6 +48,7 @@ const myFirebaseAuthConfig = {
 @NgModule({
   declarations: [
     MyApp,
+    //CalendarModule,
     ClientListPage,
     AddClientPage,
     EditClientPage,
@@ -63,6 +66,7 @@ const myFirebaseAuthConfig = {
   ],
   imports: [
     NgCalendarModule,
+    ScheduleModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],

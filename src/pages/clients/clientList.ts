@@ -48,7 +48,6 @@ export class ClientListPage implements OnInit{
   navClient(client, name){
     this.clientService.client=client;
     this.clientService.clientName=name;
-    console.log("name"+name);
     this.clientService.setClientTasks(client.$key);
     this.navCtrl.push(ClientDetailPage);
   }

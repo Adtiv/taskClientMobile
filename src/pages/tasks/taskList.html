@@ -4,11 +4,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title center>Tasks</ion-title>
-    <ion-buttons end>
+    <!--<ion-buttons end>
       <button ion-button color="theme" (click)="navAdd()" large>
         <ion-icon color="light" name="add-circle" large></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 </ion-header>
 <ion-content  padding>
@@ -50,6 +50,7 @@
       Future
     </ion-segment-button>
   </ion-segment>
+  
   <ion-list>
     <ion-list-header style="text-align: center;"><span style="float:left;"><a (click)="showPast()"><ion-icon name="stopwatch" [style.color]="historyToggle()"></ion-icon></a></span>Showing <span *ngIf="!pastTasks"><i>{{taskType}}</i></span><span *ngIf="pastTasks"><i>Task History</i></span><span *ngIf="pastTasks" style="float:right;"><a (click)="deletePast()"><ion-icon name="trash" color="dark"></ion-icon></a></span></ion-list-header>
     <ion-item-sliding *ngFor="let task of tasks | async" (click)="navTask(task)" style="border:1px solid rgba(50,50,50,.5);margin-bottom: 2%;border-radius: 2px;" text-wrap no-lines>
@@ -70,6 +71,11 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+
+<ion-fab right bottom>
+  <button (click)="navAdd()"  ion-fab><ion-icon color="light" name="add" large></ion-icon></button>
+</ion-fab>
+
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 
 <ion-nav [root]="rootPage" #navItems swipeBackEnabled="false"></ion-nav>

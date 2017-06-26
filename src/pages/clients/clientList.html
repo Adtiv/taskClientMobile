@@ -6,11 +6,12 @@
     <ion-title>
       Clients
     </ion-title>
+    <!--
     <ion-buttons end>
       <button ion-button color="theme" (click)="navAdd()">
         <ion-icon color="light" name="md-person-add"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 </ion-header>
 
@@ -25,7 +26,7 @@
   </ion-item>
   <ion-list *ngIf="searchClient===''">
     <ion-list-header>Client List <span>{{clientListLength}}</span></ion-list-header>
-    <ion-item-sliding *ngFor="let client of clients | async" (click)="navClient(client)">
+    <ion-item-sliding *ngFor="let client of clients | async" (click)="navClient(client,client.name)">
       <ion-item><ion-icon name="ios-arrow-forward" item-right></ion-icon>
         <ion-icon name="person" item-left></ion-icon>
           <h2 style="color:rgb(100,100,175)"><b>{{client.name}}</b></h2>
@@ -33,11 +34,11 @@
           <p>{{client.email}}</p>
       </ion-item>
       <ion-item-options>
-        <button (click)="navEditClient(client)"primary>
+        <button ion-button (click)="navEditClient(client)" color="primary">
           <ion-icon name="create"></ion-icon>
           Edit
         </button>
-        <button (click)="deleteClient(client.$key)"danger>
+        <button ion-button (click)="deleteClient(client.$key)" color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
@@ -54,11 +55,11 @@
           <p>{{client.email}}</p>
       </ion-item>
       <ion-item-options>
-        <button primary>
-          <ion-icon name="create"></ion-icon>
+        <button ion-button color="primary">
+          <ion-icon name="create" ></ion-icon>
           Edit
         </button>
-        <button (click)="deleteClient(client.key)"danger>
+        <button ion-button (click)="deleteClient(client.key)" color="danger">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
@@ -66,3 +67,6 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+<ion-fab right bottom>
+  <button (click)="navAdd()"  ion-fab><ion-icon color="light" name="add" large></ion-icon></button>
+</ion-fab>

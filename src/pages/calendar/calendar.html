@@ -3,16 +3,20 @@
 	<button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Ionic 2 Dropbox
-    </ion-title>
+    <ion-title center>Calendar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<p-schedule [events]="events"></p-schedule>
+</ion-content>
+<!--
     <ion-buttons start>
       <button ion-button *ngIf="depth" (click)="goBack()"><ion-icon name="arrow-back"></ion-icon> Back</button> 
     </ion-buttons>
   </ion-navbar>
 </ion-header>
  
-<ion-content>
  
   <ion-list>
     <div *ngFor="let folder of folders">
@@ -24,5 +28,12 @@
       </ion-item>
     </div>
   </ion-list>
- 
-</ion-content>
+ -->
+<!--
+	<ion-content>
+		<div class="calendar-comp">
+		    <mwl-calendar-month-view [viewDate]="today">
+		    </mwl-calendar-month-view>
+		</div>
+	</ion-content>
+-->

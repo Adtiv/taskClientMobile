@@ -1,73 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-import { Dropbox } from '../clients/dropboxService';
- 
+//import { CalendarEvent } from 'angular-calendar'; 
+
 @Component({
   selector: 'page-calendar',
   templateUrl: 'calendar.html'
 })
-export class CalendarPage {
- 
-  depth: number = 0;
-  folders: any;
-  files: any;
-  constructor(public navCtrl: NavController, public dropbox: Dropbox, public Loading: LoadingController) {
- 
-  }
- 
-  ionViewDidLoad(){
- 
-      this.dropbox.setAccessToken("vSWm2_Qnc1IAAAAAAAAOrliJEIDiA7VJNsm-XIqKhn5cCS9nht5jdBcm9xvyS7uB");
-      this.folders = [];
- 	  this.files = [];
-      let loading = this.Loading.create({
-        content: 'Syncing from Dropbox...'
-      });
- 
-      loading.present();
- 
-      this.dropbox.getFolders().subscribe(data => {
-        this.folders = data.entries;
-        loading.dismiss();
-      }, (err) => {
-        console.log(err);
-      });
- 
-  }
- 
-  openFolder(path){
- 	console.log(path);
-    let loading = this.Loading.create({
-      content: 'Syncing from Dropbox...'
-    });
- 
-    loading.present();
- 
-    this.dropbox.getFolders(path).subscribe(data => {
-      this.folders = data.entries;
-      this.depth++;
-      loading.dismiss();
-    }, err => {
-      console.log(err);
-    });
- 
-  }
-  goBack(){
- 
-    let loading = this.Loading.create({
-      content: 'Syncing from Dropbox...'
-    });
- 
-    loading.present();
- 
-    this.dropbox.goBackFolder().subscribe(data => {
-      this.folders = data.entries;
-      this.depth--;
-      loading.dismiss();
-    }, err => {
-      console.log(err);
-    });
- 
-}
- 
+export class CalendarPage implements OnInit{
+    public date: Date = new Date(Date.now());
+	events: any[];
+    constructor(){
+    }
+    ngOnInit() {
+        this.events = [
+            {
+                "title": "All Day Event",
+                "start": "2016-01-01"
+            },
+            {
+                "title": "Long Event",
+                "start": "2016-01-07",
+                "end": "2016-01-10"
+            },
+            {
+                "title": "Repeating Event",
+                "start": "2016-01-09T16:00:00"
+            },
+            {
+                "title": "Repeating Event",
+                "start": "2016-01-16T16:00:00"
+            },
+            {
+                "title": "Conference",
+                "start": "2016-01-11",
+                "end": "2016-01-13"
+            }
+        ];
+        console.log(this.events);
+    }
 }

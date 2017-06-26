@@ -129,6 +129,7 @@ export class ClientService implements OnInit{
       this.clients=this.af.database.list('clients/'+this.userService.uid);
       this.clientKey = this.clients.push({uid:this.userService.uid,name:name,email:email,phoneNumber:phoneNumber,address:address}).key;
       this.addSortLocalClientArray(new Client(this.clientKey,name,email,phoneNumber,address));
+      //this.setClients();
     }
     addSortLocalClientArray(client){
       this.clientList.push(client);

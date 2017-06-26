@@ -41,6 +41,7 @@ export class LoginPage implements OnInit{
     }).then(user=>{
         console.log("LOGGED In")
         self.userService.uid=user.uid;
+        self.userService.currentUser = user.email;
         loading.dismiss();
         if(user!=null){
           let prompt = self.alert.create({

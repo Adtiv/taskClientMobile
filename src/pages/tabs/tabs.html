@@ -7,12 +7,15 @@
 <ion-menu [content]="mycontent">
 
 	<ion-header>
-	  <ion-navbar>
-	    <!--<button ion-button menuToggle>
+    <div style="background-color:Dodgerblue">
+    <br><br><br><br><br>    
+    <!--<button ion-button menuToggle>
 	      <ion-icon name="close"></ion-icon>
 	    </button>-->
-	    <ion-title>Menu</ion-title>
-	  </ion-navbar>
+	    <ion-title>Hi {{userName}}</ion-title>
+
+    <br><br><br><br><br>
+    </div>
 	</ion-header>
 
     <ion-content >
@@ -25,6 +28,9 @@
             </button>
             <button ion-item menuClose (click)="openPage(calendarPage)">
                 <ion-icon name="calendar"></ion-icon> Calendar
+            </button>
+            <button ion-item menuClose (click)="openPage(calendarPage)">
+                <ion-icon name="person"></ion-icon> My Account
             </button>
         </ion-list>
     </ion-content>
