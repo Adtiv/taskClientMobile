@@ -12,16 +12,16 @@ export class AddClientPage implements OnInit {
   name:string;
   email:string;
   phoneNumber:string;
-  client;
+  client:any;
   address:string;
   constructor(private clientService:ClientService,private taskService:TaskService,private userService:UserService,private af:AngularFire,private auth:AngularFireAuth,private navCtrl: NavController) {
   }
   ngOnInit(){
   }
   addClient(){
-    console.log(this.clientService.clientList.length);
+    console.log("FIRST " + this.clientService.clientList.length);
     this.clientService.addClient(this.name, this.email,this.phoneNumber,this.address);
-    console.log(this.clientService.clientList.length);
+    console.log("SECOND " + this.clientService.clientList.length);
     this.navCtrl.pop();
   }
 }

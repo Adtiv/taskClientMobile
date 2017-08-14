@@ -18,10 +18,19 @@ export class ClientListPage implements OnInit{
   clientListLength:Number;
   files:any;
   constructor(private userService: UserService,private navCtrl: NavController,private clientService:ClientService) {
+    //setTimeout(() => {this.clientList=this.clientService.getLocalClientList();console.log("LIST "+this.clientList)}, 30000);  
+    console.log("CLIENTLIST CONSTRUCTOR");
+  }
+  ionViewDidEnter() {
+        console.log("VIEW ENTERED");
+    this.clientList=this.clientService.getLocalClientList();
+    this.clientListLength=this.clientList.length;  
+    console.log("len" + this.clientListLength);
+  }
+  ngOnInit(){
     this.userService.auth.onAuthStateChanged((auth)=>{
         this.clients=this.clientService.getClients();
         if(this.clientService.initLocalClient){
-          console.log("GETS TO INIT LOCAL");
           this.clientList=this.clientService.getLocalClientList();
           this.clientListLength=this.clientList.length;
         }
@@ -31,19 +40,17 @@ export class ClientListPage implements OnInit{
         })*/
     })
     this.searchClient="";
-    //setTimeout(() => {this.clientList=this.clientService.getLocalClientList();console.log("LIST "+this.clientList)}, 30000);  
-  }
-  ngOnInit(){
     //this.clientService.initAddClient=true;
     //setTimeout(() => { this.searchClient="" }, 1);          
   }
   navAdd(){
-    this.searchClient=" ";
+    this.searchClient="";
     this.navCtrl.push(AddClientPage);
   }
   deleteClient(clientKey){
     this.clientService.deleteClient(clientKey);
     this.searchClient="";
+    this.clientListLength=this.clientList.length;
   }
   navClient(client, name){
     this.clientService.client=client;

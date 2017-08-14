@@ -34,25 +34,14 @@ export class ClientService implements OnInit{
       this.initLocalClient=true;
       this.userService.auth.onAuthStateChanged((user)=>{
             this.userId=this.userService.uid;
-            this.setClients();        
+            this.setClients()
       })
-      /*
-      this.userService.af.auth.subscribe((auth)=>{
-        if(auth!=null){
-            this.userId=this.userService.uid;
-            this.setClients();
-            //this.clients.subscribe((snapshots)=> console.log(snapshots) );
-          }
-        else{
-          this.clients=null;
-        }
-      });
-      */
-    }
-    ngOnInit(){
 
     }
+    ngOnInit(){
+    }
     setClients(){
+
       this.clients = this.af.database.list('clients/'+this.userId, { preserveSnapshot: true });
       this.clientList = [];
       var self = this;
@@ -62,23 +51,27 @@ export class ClientService implements OnInit{
             }
           })
       this.localClientObservable.subscribe(snapshots => {
+              console.log("initLocalClient  " + this.initLocalClient);
                var clientListLength = snapshots.length;
-               snapshots.forEach(snapshot => {
-                   //if(this.initLocalClient){
-                     if(self.dupsMap[snapshot.$key]!==-1){
-                       this.setLocalClients(snapshot.$key,snapshot.name,snapshot.email,snapshot.phoneNumber,snapshot.address);
-                       self.dupsMap[snapshot.$key]=-1;
-                       console.log("dbLen  " + clientListLength +" localLen "+this.clientList.length);
-                       if(this.clientList.length===clientListLength){
-                         console.log(this.clientList)
-                         this.initLocalClient=true;
-                         localStorage.setItem("clientList",JSON.stringify(this.clientList));
-                       }
-                     }
-                   //}
-                  //this.initLocalClient=false;
+               if(this.initLocalClient){
+                 snapshots.forEach(snapshot => {
+                       console.log("INSIDE INIT LOCAL");
+                       //if(self.dupsMap[snapshot.$key]!==-1){
+                         this.setLocalClients(snapshot.$key,snapshot.name,snapshot.email,snapshot.phoneNumber,snapshot.address);
+                         /*self.dupsMap[snapshot.$key]=-1;
+                         console.log("dbLen  " + clientListLength +" localLen "+this.clientList.length);
+                         if(this.clientList.length===clientListLength){
+                           console.log(this.clientList)
+                           this.initLocalClient=true;
+                           localStorage.setItem("clientList",JSON.stringify(this.clientList));
+                         }
+                       }*/
+                     //}
+                   this.initLocalClient=false;
+                 }
+               )}
+               //this.initLocalClient=false;
 
-                })
           })
     }
     setClientTasks(clientKey){
@@ -118,9 +111,11 @@ export class ClientService implements OnInit{
     getLocalClientList(){
       console.log("CLIENTLIST????" + this.clientList)
       //return this.clientList;
-      return JSON.parse(localStorage.getItem('clientList'))
+      return this.clientList;
+      //return JSON.parse(localStorage.getItem('clientList'))
     }
     addClient(name, email,phoneNumber,address){
+      this.initLocalClient=false;
       /*
       if(this.initAddClient){
         this.clientList = [];
@@ -132,11 +127,14 @@ export class ClientService implements OnInit{
       //this.setClients();
     }
     addSortLocalClientArray(client){
+      console.log(this.clientList.length);
       this.clientList.push(client);
+      console.log(this.clientList.length);
       this.clientList.sort(function(a,b){
         var alc = a.name.toLowerCase(), blc = b.name.toLowerCase();
         return alc > blc ? 1 : alc < blc ? -1 : a.name > b.name ? 1 : a.name < b.name ? -1 : 0;
       });
+      console.log(this.clientList.length)
     }
     updateSortLocalClient(key,name,email,phoneNumber,address){
       for(let i=0;i<this.clientList.length;i++){
@@ -164,9 +162,10 @@ export class ClientService implements OnInit{
       //console.log(taskKey + title + description + dueDate + taskType + daysTillDue);
     }
     deleteLocalClient(clientKey){
+      //doubles array size;
       console.log(clientKey);
       for(let i=0;i<this.clientList.length;i++){
-        if(this.clientList[i].key==clientKey){
+        if(this.clientList[i].key===clientKey){
           this.clientList.splice(i,1);
         }
       }
