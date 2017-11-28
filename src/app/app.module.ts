@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { InAppBrowser } from 'ionic-native';
 import { MyApp } from './app.component';
 //import { CalendarModule } from 'angular-calendar';
 import { ScheduleModule } from 'primeng/components/schedule/schedule';
@@ -9,8 +10,9 @@ import { AddClientPage } from '../pages/clients/addClient';
 import { EditClientPage } from '../pages/clients/editClient';
 import { ClientDetailPage } from '../pages/clients/clientDetail';
 import { ClientService } from '../pages/clients/clientService';
-import { SearchPipe } from '../pages/clients/search.pipe'
+import { SearchPipe } from '../pages/clients/search.pipe';
 import { Dropbox } from '../pages/clients/dropboxService';
+import { LoginDropboxPage } from '../pages/clients/loginDropbox';
 
 
 import { CalendarPage } from '../pages/calendar/calendar';
@@ -62,7 +64,8 @@ const myFirebaseAuthConfig = {
     TabsPage,
     HomePage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
+    LoginDropboxPage
   ],
   imports: [
     NgCalendarModule,
@@ -85,14 +88,16 @@ const myFirebaseAuthConfig = {
     TabsPage,
     HomePage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
+    LoginDropboxPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
     ClientService,
     TaskService,
-    Dropbox
+    Dropbox/*,
+    InAppBrowser*/
   ]
 })
 export class AppModule {}

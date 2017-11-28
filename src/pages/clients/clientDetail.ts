@@ -4,6 +4,7 @@ import {AngularFire, AngularFireAuth, FirebaseListObservable, FirebaseObjectObse
 import {UserService} from '../user/userService'
 import {ClientService} from './clientService'
 import {TaskService} from '../tasks/taskService';
+import {EditClientPage} from './editClient'
 import { Dropbox } from '../clients/dropboxService';
 @Component({
   templateUrl: 'clientDetail.html'
@@ -58,5 +59,13 @@ export class ClientDetailPage implements OnInit {
     else{
       return "rgba(0,255,0,.8)";
     }
+  }
+  deleteClient(clientKey){
+    this.clientService.deleteClient(clientKey);
+    this.navCtrl.pop();
+  }
+  navEditClient(client){
+    this.clientService.setEditClientData(client,client.name,client.email,client.phoneNumber,client.address, client.$key);
+    this.navCtrl.push(EditClientPage);
   }
 }

@@ -29,9 +29,14 @@
             <button ion-item menuClose (click)="openPage(calendarPage)">
                 <ion-icon name="calendar"></ion-icon> Calendar
             </button>
-            <button ion-item menuClose (click)="openPage(calendarPage)">
-                <ion-icon name="person"></ion-icon> My Account
-            </button>
+            <div style="">
+                <button ion-item menuClose (click)="openPage(loginDropboxPage)">
+                    <ion-icon name="logo-dropbox"></ion-icon> Dropbox
+                </button>
+                <button ion-item menuClose (click)="logout()">
+                    <ion-icon name="home"></ion-icon> Logout
+                </button>
+            </div>
         </ion-list>
     </ion-content>
 

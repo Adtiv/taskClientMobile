@@ -9,17 +9,51 @@ declare var cordova:any;
 @Injectable()
 export class Dropbox {
  
-  	accessToken: any;
-  	folderHistory: any = [];
+	accessToken: any;
+	folderHistory: any = [];
+	appKey: any;
+	redirectURI: any;
+	url: any;
  
   	constructor(public http: Http) {
- 
+   		this.appKey = 'cm4wdj4ieymomyi';
+    	this.redirectURI = 'http://localhost';
+    	this.url = 'https://www.dropbox.com/1/oauth2/authorize?client_id=' + this.appKey + '&redirect_uri=' + this.redirectURI + '&response_type=token';
   	}
  
   	setAccessToken(token) {
     	this.accessToken = token;
   	}
- 
+	login(){
+		
+	  return new Promise((resolve, reject) => {
+	 
+	    let browser = new InAppBrowser(this.url,'_blank','location=no,zoom=no,hidden=no');
+	    //let browser = InAppBrowser.open(this.url,'_blank');
+	    //this.iab.open(this.url,'_blank','location=yes');
+	 
+	    let listener = browser.on('loadstart').subscribe((event: any) => {
+	 	//browser.addEventListener('loadstart', function(event) {
+	      //Ignore the dropbox authorize screen
+	      if(event.url.indexOf('oauth2/authorize') > -1){
+	        return;
+	      }
+	 
+	      //Check the redirect uri
+	      if(event.url.indexOf(this.redirectURI) > -1 ){
+	        listener.unsubscribe();
+	        browser.close();
+	        let token = event.url.split('=')[1].split('&')[0];
+	        this.accessToken = token;
+	        resolve(event.url);
+	      } else {
+	        reject("Could not authenticate");
+	      }
+	 
+	    });
+	 
+	  });
+	}
 	getUserInfo(){
 	 
 	  let headers = new Headers();
@@ -65,7 +99,7 @@ export class Dropbox {
 	downloadFile(path,loading){
 		var url = "https://api-content.dropbox.com/1/files/auto/" + path;
 		var result;
-		InAppBrowser.open(url, '_system', 'location=yes');
+		//InAppBrowser.open(url, '_system', 'location=yes');
 		loading.dismiss();
 	}
 	goBackFolder(){

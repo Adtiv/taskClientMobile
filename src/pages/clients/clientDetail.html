@@ -34,4 +34,10 @@
              <ion-icon [style.color]="getStyle(clientTask)"name="checkmark"item-left><p>{{clientTask.days}} <span *ngIf="clientTask.days!=1">days</span><span *ngIf="clientTask.days==1">day</span></p></ion-icon><div style="white-space: normal;"><span>{{clientTask.task}}</span></div>  
         </ion-item>    
     </ion-list>
+    <button ion-button (click)="navEditClient(client)" color="primary">
+      <ion-icon name="create"></ion-icon>
+    </button>
+    <button ion-button (click)="deleteClient(client.$key)" color="danger" style="float:right">
+      <ion-icon name="trash"></ion-icon>
+    </button>
 </ion-content>

@@ -162,7 +162,7 @@ export class ClientService implements OnInit{
       //console.log(taskKey + title + description + dueDate + taskType + daysTillDue);
     }
     deleteLocalClient(clientKey){
-      //doubles array size;
+      //figure out a way to delete from local list when delete on website
       console.log(clientKey);
       for(let i=0;i<this.clientList.length;i++){
         if(this.clientList[i].key===clientKey){

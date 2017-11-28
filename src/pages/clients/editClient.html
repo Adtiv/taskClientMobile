@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar favorite>
+  <ion-navbar color="theme">
     <ion-title>Edit Client</ion-title>
   </ion-navbar>
 </ion-header>
@@ -26,6 +26,6 @@
             <ion-input name="address" id="address"type="text" value="{{client.address}}" [(ngModel)]="address" ></ion-input>
         </ion-item>       
         <br/><br/> 
-        <button type="submit" class="custom-button" block>Update</button>
+        <button ion-button type="submit" class="custom-button" block>Create</button>
     </form>
 </ion-content>
